@@ -1,0 +1,238 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /*o tamanho da caixa será defino pelo seu tamanho, e não sofrerá efeitos de padding ou margim. Se não tiver isso e definir 100px numa div e der padding, a caixa terá mais que 100px pois levará em conta o padding acrescido. Utilizando o bor-sizing:border-box; isso não ocorrerá, não alterará a estrutura da div*/
+
+}
+
+:root {
+  --text-color: white;
+  --bg-url: url(./assets/mob-background-adm.jpg);
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.02);
+  --highlight-color: rgba(255, 255, 255, 0.2);
+  --switch-bg-url: url(./assets/briefcase-outline.svg);
+}
+
+.dev {
+  --text-color: white;
+  --bg-url: url(./assets/mob-background-dev.jpg);
+ --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.02);
+  --highlight-color: rgba(255, 255, 255, 0.2);
+  --switch-bg-url: url(./assets/code-slash-outline.svg);
+  
+}
+
+body {
+  /*background-image: url(./assets/bg-mobile.jpg);
+  background-repeat: no-repeat;
+  background-position: center; só assim a imagem ficaria centralizada mas com o meia dela na borda superior da viewport , deve add "top" antes do center para dizer que a centralização será pelo topo da imagem e não pelo centro da imagem
+  background-position: top center; 
+  background-size: cover; numa imagem pequena ele preenche todo o espaço vazio da viewport . "contain, ele trabalha como "estar contido dentro de algo". Só pracisa definir o tamanho desse algo antes.*/
+
+  /* AGRUPAR TODO O CÓDIGO ACIMA NO: background: color image repeate position/cover */
+
+  background: var(--bg-url) no-repeat top center/cover;
+  height: 100vh;
+
+}
+
+body * {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+}
+
+#container {
+  width: 100%;
+  max-width: 560px;
+  margin: 56px auto 0px; /*joga a div pro meio dividindo o espaço em branco da direita pra esquerda pois tanto o right quando o lef estão em automático*/
+   /* tendo 1 é aplicada pros 4 lados, 2 será top e boton,  3 especificações tipo margin: 56px auto 8px, quer dizer que será 56px pra cima, auto pras laterais e 8 pro botton */
+   padding: 0 24px;
+}
+/* altura segue o conteúdo, poucas coisas são fixas. Geralmente a altura é fluída */
+
+/* profile */
+#profile {
+  /* itens inline aceitam que o pai diga ao filho como ele deve se comportar através do text-align:center */
+  text-align: center;
+  padding: 24px;
+
+
+}
+
+#profile p{
+  font-weight: 500; /**/
+  font-size: 24px; /*por padrão é 16px*/ 
+  line-height: 24px; /*altura da linha*/
+  margin-top: 8px;
+}
+
+/* switch */
+#switch {
+
+  position: relative;
+  width: 64px;
+  margin: 4px auto;
+
+}
+#switch button {
+  
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center;
+  border: 0;
+  border-radius: 50%;
+  position: absolute; /*habilitando absoluto, vc pode usar o z-index e colocalo a frente. Ao usar o absoluto vc pode posicionar ele emqualquer lugar da viewport usando o top: left: right: bottom: . O que faremos é posicionar ele dentro do switch, dando ao switch a posição relativa. Assim a posição do button será absoluta dentro da relatividade do switch. Ele vai ficar absoluto dentro das dimensões do switch*/
+  top: 50%;
+  left: 0;
+  z-index:1;
+  transform: translateY(-50%);
+
+  animation: slide-back 0.2s;
+ 
+}
+
+
+
+#switch button:hover {
+  outline: 8px solid var(--highlight-color)
+
+}
+
+.dev #switch button {
+  /* right: 0;
+  left: initial; */ 
+  /* substituídos acima pela animação @keyframe */
+  animation: slide-in 0.4s forwards; /*forwards para que o botão não volte a posição inicial. Que mantenha a posição adquirida ao final da animação.*/
+}
+
+
+#switch span {
+  display: block;
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 9999px;
+}
+
+/* links */
+ ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 0;
+   
+  
+}
+
+ul li a{
+  
+  display: flex; /*diz que os elementos filhos ficarão um do lado do outro*/
+  /* li é display:block ocupa todo espaço da caixa */
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  text-decoration: none;
+  font-weight: 500;
+  
+  transition: background 0.2s; 
+
+ }
+
+ /* pseudo selector */
+ ul li a:hover {
+  background: var(--surface-color-hover);
+  border: 1.5px solid var(--text-color);
+
+ }
+/* social links */
+#social-links {
+  display: flex;
+  justify-content: center;
+  
+  padding: 24px 0;
+  font-size: 24px;
+
+
+}
+#social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: background .2s;
+  border-radius: 50%;
+}
+
+#social-links a:hover {
+  background:  var(--highlight-color);
+  padding: 16px;
+}
+
+footer {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+
+#profile img {
+  width: 112px;
+  /*margin: auto; não alinhou a imagem, porque elemento em display:inline não recebem margim: auto*/
+  
+  border-radius: 50%;
+  
+
+  
+  
+}
+
+/* display:nome é tirar da tela, alguns são display:block("Div"pegara toda largura possível de tela) e outros são in line(imagem, a, span */
+
+/* Media queries */
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/background-adm.jpg);
+    
+  }
+  
+  .dev {
+    --bg-url: url(./assets/background-dev.jpg);
+    
+  }
+}
+
+/* Animações */
+
+@keyframes slide-in {
+  from {
+    left: 0;
+
+  } to {
+    left:50%
+/* ao terminar o "from to" volta pro inicial. */
+  }
+}
+
+@keyframes slide-back {
+  from {
+    left: 50%;
+
+  } to {
+    left:0
+/* ao terminar o "from to" volta pro inicial. */
+  }
+}
